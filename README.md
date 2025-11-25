@@ -88,16 +88,16 @@ Try it now with a sample configuration:
 
 ```javascript
 // Test URL - Copy and paste in browser
-const testConfig = {
+const config = {
   region: 'us-east-1',
-  userPoolId: 'us-east-1_jGBVs2HIq',
-  userPoolClientId: '4q6uc7bco8ud3g7nkgq3h6lqe6',
-  apiEndpoint: 'https://o5pjniukhl.execute-api.us-east-1.amazonaws.com/prod',
+  userPoolId: 'us-east-1_XXXXXXXXX',
+  userPoolClientId: 'your-client-id',
+  apiEndpoint: 'https://your-api.execute-api.us-east-1.amazonaws.com/prod',
   theme: { primaryColor: '#667eea', companyName: 'Demo App' }
 };
 
-const testUrl = `https://universal-auth-hosted.vercel.app?config=${btoa(JSON.stringify(testConfig))}`;
-// Open testUrl in browser to try the demo
+const authUrl = `https://universal-auth-hosted.vercel.app?config=${btoa(JSON.stringify(config))}`;
+// Use authUrl in your application
 ```
 
 **🔗 [Click here to try the live demo](https://universal-auth-hosted.vercel.app?config=eyJyZWdpb24iOiJ1cy1lYXN0LTEiLCJ1c2VyUG9vbElkIjoidXMtZWFzdC0xX2pHQlZzMkhJcSIsInVzZXJQb29sQ2xpZW50SQiOiI0cTZ1YzdiY284dWQzZzduaWdxM2g2bHFlNiIsImFwaUVuZHBvaW50IjoiaHR0cHM6Ly9vNXBqbml1a2hsLmV4ZWN1dGUtYXBpLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tL3Byb2QiLCJ0aGVtZSI6eyJwcmltYXJ5Q29sb3IiOiIjNjY3ZWVhIiwiY29tcGFueU5hbWUiOiJEZW1vIEFwcCJ9fQ==)**
