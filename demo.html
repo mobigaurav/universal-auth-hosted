@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Auth Demo Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+        button { background: #667eea; color: white; padding: 12px 24px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #5a6fd8; }
+        .result { background: #f5f5f5; padding: 15px; border-radius: 4px; margin-top: 20px; }
+        .demo-link { background: #e8f5e8; padding: 10px; border-radius: 4px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>🚀 Universal Auth Demo Generator</h1>
+    <p>Configure your AWS Cognito settings and generate a demo link:</p>
+
+    <form id="configForm">
+        <div class="form-group">
+            <label for="region">AWS Region:</label>
+            <input type="text" id="region" value="us-east-1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="userPoolId">User Pool ID:</label>
+            <input type="text" id="userPoolId" placeholder="us-east-1_XXXXXXXXX" required>
+        </div>
+
+        <div class="form-group">
+            <label for="userPoolClientId">User Pool Client ID:</label>
+            <input type="text" id="userPoolClientId" placeholder="your-client-id" required>
+        </div>
+
+        <div class="form-group">
+            <label for="apiEndpoint">API Endpoint:</label>
+            <input type="text" id="apiEndpoint" placeholder="https://your-api.execute-api.us-east-1.amazonaws.com/prod" required>
+        </div>
+
+        <div class="form-group">
+            <label for="companyName">Company Name:</label>
+            <input type="text" id="companyName" value="My App" required>
+        </div>
+
+        <div class="form-group">
+            <label for="primaryColor">Primary Color:</label>
+            <input type="color" id="primaryColor" value="#667eea">
+        </div>
+
+        <div class="form-group">
+            <label for="mode">Integration Mode:</label>
+            <select id="mode">
+                <option value="">Web (Redirect)</option>
+                <option value="mobile">Mobile (Deep Link)</option>
+                <option value="popup">Popup Window</option>
+            </select>
+        </div>
+
+        <button type="submit">Generate Demo Link</button>
+    </form>
+
+    <div id="result" class="result" style="display: none;">
+        <h3>📋 Generated Configuration</h3>
+        <p><strong>Demo URL:</strong></p>
+        <div class="demo-link">
+            <a id="demoLink" href="#" target="_blank">Click to test your auth flow</a>
+        </div>
+        
+        <p><strong>React Integration Code:</strong></p>
+        <pre id="reactCode"></pre>
+
+        <p><strong>React Native Integration Code:</strong></p>
+        <pre id="reactNativeCode"></pre>
+    </div>
+
+    <script>
+        document.getElementById('configForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const config = {
+                region: document.getElementById('region').value,
+                userPoolId: document.getElementById('userPoolId').value,
+                userPoolClientId: document.getElementById('userPoolClientId').value,
+                apiEndpoint: document.getElementById('apiEndpoint').value,
+                requireEmailVerification: true,
+                enablePersonaSelection: true,
+                theme: {
+                    primaryColor: document.getElementById('primaryColor').value,
+                    companyName: document.getElementById('companyName').value
+                }
+            };
+
+            const mode = document.getElementById('mode').value;
+            const configParam = btoa(JSON.stringify(config));
+            const baseUrl = 'https://universal-auth-hosted.vercel.app';
+            const demoUrl = mode ? `${baseUrl}?mode=${mode}&config=${configParam}` : `${baseUrl}?config=${configParam}`;
+
+            // Update demo link
+            document.getElementById('demoLink').href = demoUrl;
+            document.getElementById('demoLink').textContent = demoUrl;
+
+            // Generate React code
+            const reactCode = `// React Integration
+const authUrl = \`${demoUrl}\`;
+window.location.href = authUrl;
+
+// Or for popup
+const authWindow = window.open(authUrl, 'auth', 'width=400,height=600');`;
+
+            // Generate React Native code
+            const reactNativeCode = `// React Native Integration
+import * as WebBrowser from 'expo-web-browser';
+
+const result = await WebBrowser.openAuthSessionAsync(
+  '${demoUrl}',
+  'yourapp://auth-callback'
+);
+
+if (result.type === 'success') {
+  const url = new URL(result.url);
+  const token = url.searchParams.get('token');
+  const userData = JSON.parse(decodeURIComponent(url.searchParams.get('user')));
+}`;
+
+            document.getElementById('reactCode').textContent = reactCode;
+            document.getElementById('reactNativeCode').textContent = reactNativeCode;
+            document.getElementById('result').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

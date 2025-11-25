@@ -73,6 +73,17 @@ if (result.type === 'success') {
 
 ## 🧪 Test the Service
 
+### Option 1: Demo Generator (Recommended)
+**🔗 [Open Demo Generator](https://universal-auth-hosted.vercel.app/demo.html)**
+
+Use our interactive demo generator to:
+- Enter your AWS Cognito configuration
+- Generate a custom demo URL
+- Get integration code for React and React Native
+- Test your auth flow instantly
+
+### Option 2: Manual Configuration
+
 Try it now with a sample configuration:
 
 ```javascript
