@@ -1,6 +1,6 @@
 # Universal Auth Hosted Service
 
-🚀 **Live Demo:** https://universal-auth-hosted.vercel.app
+🚀 **Live Demo:** https://universal-auth-hosted.vercel.app/
 
 A hosted authentication service that provides complete auth flows (login, register, email verification, password reset) for any React or React Native application using AWS Cognito.
 
@@ -70,6 +70,26 @@ if (result.type === 'success') {
   // Handle successful authentication
 }
 ```
+
+## 🧪 Test the Service
+
+Try it now with a sample configuration:
+
+```javascript
+// Test URL - Copy and paste in browser
+const testConfig = {
+  region: 'us-east-1',
+  userPoolId: 'us-east-1_jGBVs2HIq',
+  userPoolClientId: '4q6uc7bco8ud3g7nkgq3h6lqe6',
+  apiEndpoint: 'https://o5pjniukhl.execute-api.us-east-1.amazonaws.com/prod',
+  theme: { primaryColor: '#667eea', companyName: 'Demo App' }
+};
+
+const testUrl = `https://universal-auth-hosted.vercel.app?config=${btoa(JSON.stringify(testConfig))}`;
+// Open testUrl in browser to try the demo
+```
+
+**🔗 [Click here to try the live demo](https://universal-auth-hosted.vercel.app?config=eyJyZWdpb24iOiJ1cy1lYXN0LTEiLCJ1c2VyUG9vbElkIjoidXMtZWFzdC0xX2pHQlZzMkhJcSIsInVzZXJQb29sQ2xpZW50SQiOiI0cTZ1YzdiY284dWQzZzduaWdxM2g2bHFlNiIsImFwaUVuZHBvaW50IjoiaHR0cHM6Ly9vNXBqbml1a2hsLmV4ZWN1dGUtYXBpLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tL3Byb2QiLCJ0aGVtZSI6eyJwcmltYXJ5Q29sb3IiOiIjNjY3ZWVhIiwiY29tcGFueU5hbWUiOiJEZW1vIEFwcCJ9fQ==)**
 
 ## ⚙️ Configuration Options
 
