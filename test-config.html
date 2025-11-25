@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Universal Auth Hosted Service</title>
+</head>
+<body>
+    <h1>Test Universal Auth Hosted Service</h1>
+    <p>Click the button below to test with your AWS configuration:</p>
+    
+    <button onclick="testAuth()">Test Authentication</button>
+    
+    <script>
+        function testAuth() {
+            const config = {
+                region: 'us-east-1',
+                userPoolId: 'us-east-1_jGBVs2HIq',
+                userPoolClientId: '4q6uc7bco8ud3g7nkgq3h6lqe6',
+                apiEndpoint: 'https://o5pjniukhl.execute-api.us-east-1.amazonaws.com/prod',
+                requireEmailVerification: true,
+                enablePersonaSelection: true,
+                theme: {
+                    primaryColor: '#667eea',
+                    companyName: 'Test App'
+                }
+            };
+            
+            const configParam = btoa(JSON.stringify(config));
+            const authUrl = `http://localhost:5173?config=${configParam}`;
+            
+            window.open(authUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
